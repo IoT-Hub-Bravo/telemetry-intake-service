@@ -1,0 +1,5 @@
+paho-mqtt==2.1.0
+pytest==9.0.2
+pytest-cov==6.1.0
+python-decouple==3.8
+iot-hub-shared @ git+https://github.com/IoT-Hub-Bravo/python-service-libs.git@shared-python-service-libs

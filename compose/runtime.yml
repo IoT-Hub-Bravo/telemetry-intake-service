@@ -1,8 +1,39 @@
 name: ${COMPOSE_PROJECT_NAME:-telemetry-intake-service}
 
-services:
+x-base: &base
+  build:
+    context: ..
+    dockerfile: ./docker/Dockerfile
+  restart: unless-stopped
+  env_file:
+    - ../.env
+  networks:
+    - iot-hub-nw
 
-volumes:
+services:
+  mosquitto:
+    image: eclipse-mosquitto
+    container_name: mosquitto
+    ports:
+      - "1883:1883"
+    healthcheck:
+      test: [ "CMD-SHELL", "exit 0" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - iot-hub-nw
+
+  telemetry-intake-mqtt-adapter:
+    <<: *base
+    image: telemetry-intake-mqtt-adapter
+    container_name: telemetry-intake-mqtt-adapter
+    command: [ "python", "-m", "mqtt_adapter.main" ]
+    depends_on:
+      mosquitto:
+        condition: service_healthy
+
+volumes: { }
 
 networks:
   iot-hub-nw:

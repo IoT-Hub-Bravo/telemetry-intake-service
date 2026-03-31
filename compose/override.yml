@@ -1,0 +1,4 @@
+services:
+  telemetry-intake-mqtt-adapter:
+    volumes:
+      - ../src:/app
