@@ -33,6 +33,14 @@ services:
       mosquitto:
         condition: service_healthy
 
+  telemetry-intake-http:
+    <<: *base
+    image: telemetry-intake-http
+    container_name: telemetry-intake-http
+    ports:
+      - ${HTTP_PORT:-8000}:${HTTP_PORT:-8000}
+    command: [ "uvicorn", "api.main:app",  "--host", "0.0.0.0", "--port", "${HTTP_PORT:-8000}" ]
+
 volumes: { }
 
 networks:
