@@ -9,6 +9,7 @@ settings = get_settings()
 app = FastAPI(
     title=settings.app_name,
     version=settings.app_version,
+    debug=settings.debug,
     lifespan=lifespan,
 )
 

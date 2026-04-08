@@ -1,7 +1,10 @@
 from functools import lru_cache
+from dataclasses import dataclass
+
 from decouple import config
 
 
+@dataclass(slots=True)
 class Settings:
     app_name: str = config('APP_NAME', default='telemetry-intake-service')
     app_version: str = config('APP_VERSION', default='0.1.0')
