@@ -1,0 +1,10 @@
+services:
+  telemetry-intake-mqtt-adapter:
+    volumes:
+      - ../src:/app
+
+  telemetry-intake-http:
+    environment:
+      DEBUG: True
+    volumes:
+      - ../src:/app
